@@ -338,13 +338,13 @@
   .tip div em { font-style: normal; margin-left: auto; font-weight: 700; padding-left: 12px; font-variant-numeric: tabular-nums; }
   .tip i { width: 8px; height: 8px; border-radius: 50%; flex: none; }
   .gaps { background: var(--panel); border-radius: 18px; padding: 6px 14px; margin-bottom: 12px; }
-  .gap { display: grid; grid-template-columns: 76px 1fr 108px; align-items: center; gap: 10px; padding: 9px 0; border-top: 1px solid var(--rule); }
+  .gap { display: grid; grid-template-columns: 76px 1fr 48px; align-items: center; gap: 10px; padding: 9px 0; border-top: 1px solid var(--rule); }
   .gap:first-child { border-top: 0; }
   .gap b { font-size: 16px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .gap .track { height: 12px; border-radius: 6px; background: var(--raised); overflow: hidden; }
   .gap .bar { height: 100%; border-radius: 6px; min-width: 4px; transition: width .5s ease-out; }
   .gap .val { text-align: right; font-size: 14px; color: var(--muted); white-space: nowrap; }
-  .gap .val strong { font-family: var(--num); font-size: calc(20px * var(--num-scale)); color: var(--ink); font-weight: 600; margin-right: 6px; }
+  .gap .val strong { font-family: var(--num); font-size: calc(20px * var(--num-scale)); color: var(--ink); font-weight: 600; }
   .awards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 6px; }
   .award { background: var(--panel); border-radius: 16px; padding: 12px 14px; min-width: 0; }
   .award small { display: block; color: var(--muted); font-size: 13px; }
@@ -1552,15 +1552,6 @@
       h.appendChild(el('span', 'n', String(margin)));
     }
     hero.appendChild(h);
-    if (P > 1) {
-      var chaser = ranked.filter(function (p) { return lead.indexOf(p) < 0; })[0];
-      var last = ranked[ranked.length - 1];
-      var bits = [];
-      if (chaser) bits.push(chaser.name + ' is ' + gapOf(chaser.id) + ' back');
-      if (last && last !== chaser && lead.indexOf(last) < 0) bits.push(last.name + ' needs ' + gapOf(last.id) + ' to catch up');
-      if (S.leadChanges) bits.push('the lead has changed ' + (S.leadChanges === 1 ? 'once' : S.leadChanges + ' times'));
-      if (bits.length) { var tx = bits.join(', ') + '.'; hero.appendChild(el('p', '', tx.charAt(0).toUpperCase() + tx.slice(1))); }
-    }
     box.appendChild(hero);
 
     // race chart
@@ -1668,8 +1659,6 @@
         bar.style.width = Math.max(3, frac * 100) + '%'; bar.style.background = col[p.id];
         track.appendChild(bar); row.appendChild(track);
         var v = el('div', 'val'); v.appendChild(el('strong', '', String(S.cum[p.id])));
-        var g = gapOf(p.id);
-        v.appendChild(document.createTextNode(lead.indexOf(p) > -1 ? (lead.length > 1 ? 'tied' : 'leader') : g + ' back'));
         row.appendChild(v);
         gaps.appendChild(row);
       });

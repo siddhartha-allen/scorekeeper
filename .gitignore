@@ -1,0 +1,11 @@
+# Application configurations:
+config.json
+
+# The app's own virtual environment (rebuilt from requirements*.txt).
+.venv/
+
+# Project-root settings
+.env
+
+# macOS folder metadata.
+.DS_Store
